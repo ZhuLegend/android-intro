@@ -3,18 +3,12 @@ package mg.x261.activitydemo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +36,22 @@ public class MainActivity extends AppCompatActivity {
         //   Set an item click listener for the activity list view.
         //   In the listener, use a switch statement to start the corresponding activity based on the name of the clicked item.
 
+        activityListView = findViewById(R.id.activity_list_view);
 
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_list_item_1, activityNames
+        );
+
+        activityListView.setAdapter(adapter);
+
+        activityListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent();
+                intent.setClassName(MainActivity.this, "mg.x261.activitydemo." + activityNames[position]);
+
+                startActivity(intent);
+            }
+        });
     }
 }
